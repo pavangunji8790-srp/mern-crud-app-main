@@ -1,60 +1,27 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+const response = await fetch(
+  id ? `${API_URL}/${id}` : API_URL,
+  {
+    method: id ? "PUT" : "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, content }),
+  }
+);
 
-function AddEditForm() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+const responseText = await response.text();
 
-  useEffect(() => {
-    if (id) {
-      async function fetchPost() {
-        const response = await fetch(`http://localhost:3000/api/v1/posts/${id}`);
-        const data = await response.json();
-        setTitle(data.data.title);
-        setContent(data.data.content);
-      }
-      fetchPost();
-    }
-  }, [id]);
+console.log("Status:", response.status);
+console.log("Response:", responseText);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const method = id ? "PUT" : "POST";
-    const url = id
-      ? `http://localhost:3000/api/v1/posts/${id}`
-      : "http://localhost:3000/api/v1/posts";
-    await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, content }),
-    });
-    navigate("/");
-  };
-
-  return (
-    <>
-      <div>{id ? "Edit Form" : "Add Form"}</div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <br />
-        <textarea
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}></textarea>
-        <br />
-        <button type="submit">{id ? "Update" : "Add"}</button>
-      </form>
-    </>
-  );
+if (!responseText) {
+  throw new Error(`Server returned an empty response. Status: ${response.status}`);
 }
 
-export default AddEditForm;
+const result = JSON.parse(responseText);
+
+if (!response.ok) {
+  throw new Error(result.message || "Request failed");
+}
+
+navigate("/");

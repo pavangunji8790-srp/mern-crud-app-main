@@ -1,25 +1,116 @@
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #f5f5f5;
+  gap: 16px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 25px;
 }
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.create-button {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  border-radius: 5px;
+}
+
 .posts-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
+
 .post {
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
+
 .post-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
+
+.post-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
 .post-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.post-actions button,
+form button {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 5px;
+  background: #2563eb;
+  color: white;
+}
+
+.post-actions .delete-button {
+  background: #dc2626;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 8px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-container textarea {
+  resize: vertical;
+}
+
+form .cancel-button {
+  background: #666;
+}
+
+.error {
+  color: #dc2626;
+}
+
+@media (max-width: 600px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 21px;
+  }
 }
